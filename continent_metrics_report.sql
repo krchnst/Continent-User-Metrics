@@ -1,4 +1,4 @@
--- CTE 1: Calculate total session count per continent
+-- Calculate total session count per continent
 WITH sessions_by_continent AS (
  SELECT
    sp.continent,
@@ -8,7 +8,7 @@ WITH sessions_by_continent AS (
  GROUP BY sp.continent
 ),
 
--- CTE 2: Calculate revenue per session, categorized by device
+-- Calculate revenue per session, categorized by device
 orders_revenue AS (
  SELECT
    sp.continent,
@@ -26,7 +26,7 @@ orders_revenue AS (
  GROUP BY sp.continent, device, o.ga_session_id
 ),
 
--- CTE 3: Aggregate total and device-specific revenue per continent
+-- Aggregate total and device-specific revenue per continent
 revenue_by_continent AS (
  SELECT
    continent,
@@ -37,7 +37,7 @@ revenue_by_continent AS (
  GROUP BY continent
 ),
 
--- CTE 4: Calculate unique account counts and verified account counts per continent
+-- Calculate unique account counts and verified account counts per continent
 accounts_by_continent AS (
  SELECT
    sp.continent,
@@ -52,7 +52,7 @@ accounts_by_continent AS (
  GROUP BY sp.continent
 ),
 
--- CTE 5: Join all metric sets (Sessions, Revenue, Accounts) by continent
+-- Join all metric sets (Sessions, Revenue, Accounts) by continent
 joined AS (
  SELECT
    sbc.continent,
@@ -67,7 +67,7 @@ joined AS (
  LEFT JOIN accounts_by_continent abc ON abc.continent = sbc.continent
 ),
 
--- CTE 6: Calculate total revenue across ALL continents using a Window Function
+-- Calculate total revenue across ALL continents using a Window Function
 with_total AS (
  SELECT
    *,
